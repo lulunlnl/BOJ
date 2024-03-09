@@ -20,7 +20,7 @@ ll CCW(const Point& A, const Point& B, const Point& C) {
 int par[205], sz[205];
 
 void init(int n) {
-    for (int i = 1; i <= n; i++) par[i] = i, sz[i] = 1;
+    for (int i = 0; i <= n; i++) par[i] = i, sz[i] = 1;
 }
 int find(int v) {
     if (v == par[v]) return v;
