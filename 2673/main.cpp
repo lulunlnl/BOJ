@@ -14,9 +14,8 @@ int main() {
     for (int d = 1; d <= 99; d++) {
         for (int i = 0; i < 100; i++) {
             for (int k = i; k <= i+d; k++) {
-                dp[i][(i+d)%100] = max(dp[i][(i+d)%100], dp[i][k%100] + dp[k%100][(i+d)%100] + chk[i][(i+d)%100]);
+                dp[i][i+d] = max(dp[i][i+d], dp[i][k] + dp[k][i+d] + chk[i][i+d]);
             }
-            dp[(i+d)%100][i] = dp[i][(i+d)%100];
         }
     }
     cout << dp[0][99];

@@ -1,20 +1,22 @@
 #include "bits/stdc++.h"
 using namespace std;
+int N, ans;
+
+void solve(int x) {
+    if (x > N) return;
+    if (x == N) {
+        ans++;
+        return;
+    }
+    for (int i = 1; i <= 2; i++) {
+        solve(x + i);
+    }
+}
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
-    int d; cin >> d;
-    // 5.5t % 360 = d or 360-d
-    int cnt = 0;
-    vector<int> ans;
-    for (int i = 0; i < 12*60; i += 2) {
-        if (i / 2 * 11 % 360 == d || i / 2 * 11 % 360 == 360-d) {
-            cnt++;
-            ans.push_back(i);
-        }
-    }
-    cout << cnt << "\n";
-    for (auto &i: ans) {
-        printf("%02d:%02d\n", i/60, i%60);
-    }
+    cin >> N;
+    solve(0);
+    solve(2);
+    cout << ans;
 }
