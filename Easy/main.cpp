@@ -3,20 +3,14 @@ using namespace std;
 
 int main() {
     cin.tie(0)->sync_with_stdio(0);
-    while (1) {
-        int n; cin >> n;
-        if (!n) break;
-        vector<int> a(n), tmp(n);
-        for (int i = 0; i < n; i++) cin >> a[i];
-        for (int i = 6; i < n; i++) tmp[i] = 1;
-        do {
-            for (int i = 0; i < n; i++) {
-                if (!tmp[i]) {
-                    cout << a[i] << " ";
-                }
-            }
-            cout << "\n";
-        } while (next_permutation(tmp.begin(), tmp.end()));
-        cout << "\n";
+    int n; cin >> n;
+    int ans = 0, now = 1, ret = 0;
+    for (int i = 1; i <= n; i++) {
+        now = i, ret = 0;
+        while (ret < n) {
+            ret += now++;
+        }
+        if (ret == n) ans++;
     }
+    cout << ans << "\n";
 }
