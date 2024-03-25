@@ -1,5 +1,6 @@
 #include "bits/stdc++.h"
 using namespace std;
+int dx[4] = {0, 0, 1, -1}, dy[4] = {1, -1, 0, 0};
 
 struct UF {
     vector<int> par, sz;
@@ -26,9 +27,11 @@ struct UF {
 int main() {
     cin.tie(0)->sync_with_stdio(0);
     int R, C; cin >> R >> C;
+    vector<vector<char>> arr(R, vector<char>(C));
     for (int i = 0; i < R; i++) {
         for (int j = 0; j < C; j++) {
-            char c; cin >> c;
+            cin >> arr[i][j];
         }
     }
+
 }
