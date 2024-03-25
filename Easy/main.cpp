@@ -2,15 +2,16 @@
 using namespace std;
 
 int main() {
-    cin.tie(0)->sync_with_stdio(0);
-    int n; cin >> n;
-    int ans = 0, now = 1, ret = 0;
-    for (int i = 1; i <= n; i++) {
-        now = i, ret = 0;
-        while (ret < n) {
-            ret += now++;
+    int T; cin >> T;
+    while (T--) {
+        int n; cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        int now = 0, S = -1e9;
+        for (int i = 0; i < n; i++) {
+            now = max(a[i], now + a[i]);
+            S = max(S, now);
         }
-        if (ret == n) ans++;
+        cout << S << "\n";
     }
-    cout << ans << "\n";
 }
