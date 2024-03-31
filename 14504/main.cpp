@@ -41,8 +41,8 @@ int main() {
     int n, q; cin >> n;
     sqrtN = (int)sqrt(n);
     for (int i = 1; i <= n; i++) {
-        cin >> arr[i];
-        update(i, arr[i]);
+        int x; cin >> x;
+        update(i, x);
     }
     cin >> q;
     while (q--) {
