@@ -1,26 +1,65 @@
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 using namespace std;
-typedef vector<vector<char>> vvc;
-int flag, n, m;
+int dx[4] = {0, 0, 1, -1}, dy[4] = {1, -1, 0, 0};
+char arr[15][15];
+bool chk[15][15][15][15];
 
-void rotate(vvc& arr) {
-    vvc tmp = arr;
-    for (int i = 0; i < ; i++)
-}
+struct ball {
+    int rx, ry, bx, by, cnt;
+};
 
-void solve(vvc& arr) {
-
+void move(int& x, int& y, int d) {
+    while (1) {
+        x += dx[d], y += dy[d];
+        if (arr[x][y] == '#') {
+            x -= dx[d], y -= dy[d];
+            break;
+        }
+        else if (arr[x][y] == 'O') break;
+    }
 }
 
 int main() {
-    cin.tie(0)->sync_with_stdio(0);
-    cin >> n >> m;
-    vvc arr(n, vector<char>(m));
+#ifdef ONLINE_JUDGE
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+#endif
+    int n, m; cin >> n >> m;
+    int a, b, c, d;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             cin >> arr[i][j];
+            if (arr[i][j] == 'R') a = i, b = j;
+            else if (arr[i][j] == 'B') c = i, d = j;
         }
     }
-    solve(arr);
-    if (!flag) cout << -1;
+    int ans = -1;
+    queue<ball> Q;
+    Q.push({a, b, c, d, 0});
+    chk[a][b][c][d] = 1;
+    while (!Q.empty()) {
+        ball now = Q.front(); Q.pop();
+        if (now.cnt > 10) break;
+        if (arr[now.rx][now.ry] == 'O') {
+            ans = now.cnt;
+            break;
+        }
+        for (int i = 0; i < 4; i++) {
+            int rx = now.rx, ry = now.ry, bx = now.bx, by = now.by;
+            move(rx, ry, i);
+            move(bx, by, i);
+            if (arr[bx][by] == 'O') continue;
+            if (rx == bx && ry == by) {
+                if (i == 0) now.ry < now.by ? ry-- : by--;
+                else if (i == 1) now.ry < now.by ? by++ : ry++;
+                else if (i == 2) now.rx < now.bx ? rx-- : bx--;
+                else now.rx < now.bx ? bx++ : rx++;
+            }
+            if (!chk[rx][ry][bx][by]) {
+                Q.push({rx, ry, bx, by, now.cnt + 1});
+                chk[rx][ry][bx][by] = 1;
+            }
+        }
+    }
+    cout << ans << "\n";
 }

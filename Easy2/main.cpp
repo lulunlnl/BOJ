@@ -1,22 +1,17 @@
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 using namespace std;
-int N, ans;
 
-void solve(int x) {
-    if (x > N) return;
-    if (x == N) {
-        ans++;
-        return;
-    }
-    for (int i = 1; i <= 2; i++) {
-        solve(x + i);
-    }
+int p(int e) {
+    for (int c, s = 0, v; c = getchar(), ~c;)
+        if (c == '(' || c == '[') {
+            v = p(-~c | 1);
+            // -~x = -(-x-1) = x+1
+            if (!v) return 0;
+            s += v * ((c >> 5) + 1);
+        } else return c % 2 ? c - e ? 0 : s ? s : 1 : e ? 0 : s;
 }
 
 int main() {
-    cin.tie(0)->sync_with_stdio(0);
-    cin >> N;
-    solve(0);
-    solve(2);
-    cout << ans;
+    cout << (-~40 | 1) << " " << -~91;
+//    cout << p(0);
 }
