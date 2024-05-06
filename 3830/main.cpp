@@ -20,6 +20,7 @@ bool merge(int a, int b, ll w) {
 }
 
 int main() {
+    cin.tie(0)->sync_with_stdio(0);
     while (1) {
         int n, m; cin >> n >> m;
         if (!n && !m) break;
