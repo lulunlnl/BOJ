@@ -1,5 +1,54 @@
 #include <bits/stdc++.h>
-using namespace std;typedef long long ll;const ll MOD = 998244353;ll c[100005],a[100005],ans;vector<pair<ll, int>> arr;
-main(){int N; cin >> N;for(int i=0;i<N;i++){cin >> c[i] >> a[i];ans += (N-1)*a[i];arr.push_back({c[i]-a[i], i});}sort(arr.begin(),arr.end());ll t = 1, x = 1;for (int i = 1; i < N; i++){if (arr[i-1].first == arr[i].first){t *= x;t %= MOD;x++;}else{t *= x;t %= MOD;x = 1;}}t *= x;t %= MOD;ll m = ans, M = ans;for (int i=0;i<N;i++) {m+=(N-i-1)*arr[i].first;M+=i*arr[i].first;}
-cout<<m<<" "<<t<<"\n";for(int i=0;i<N;i++)cout<<arr[N-i-1].second+1<<" ";
-cout<<"\n"<<M<<" "<<t<<"\n";for(int i=0;i<N;i++)cout<<arr[i].second+1<<" ";}
+using namespace std;
+
+struct SegTree {
+    int tree[800005];
+
+    void init() {
+        for (int i = 0; i < 800005; i++) tree[i] = 0;
+    }
+
+    void update(int node, int s, int e, int idx, int val) {
+        if (idx < s || idx > e) return;
+        if (s == e) {
+            tree[node] += val;
+            return;
+        }
+        int m = s + e >> 1;
+        update(node << 1, s, m, idx, val);
+        update(node << 1 | 1, m + 1, e, idx, val);
+        tree[node] = tree[node << 1] + tree[node << 1 | 1];
+    }
+
+    int query(int node, int s, int e, int l, int r) {
+        if (r < s || e < l) return 0;
+        if (l <= s && e <= r) return tree[node];
+        int m = s + e >> 1;
+        return query(node << 1, s, m, l, r) + query(node << 1 | 1, m + 1, e, l, r);
+    }
+} seg;
+
+void solve() {
+    int n, m; cin >> n >> m;
+    seg.init();
+    vector<int> idx(n + 1);
+    for (int i = 1; i <= n; i++) {
+        idx[i] = m + i;
+        seg.update(1, 1, m + n, idx[i], 1);
+    }
+    int now = m;
+    for (int i = 0; i < m; i++) {
+        int x; cin >> x;
+        cout << seg.query(1, 1, m + n, 1, idx[x] - 1) << " ";
+        seg.update(1, 1, m + n, idx[x], -1);
+        idx[x] = now--;
+        seg.update(1, 1, m + n, idx[x], 1);
+    }
+    cout << "\n";
+}
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+    int T; cin >> T;
+    while (T--) solve();
+}
