@@ -1,3 +1,0 @@
-C:/Users/lulu0/CLionProjects/BOJ/2470/cmake-build-debug/CMakeFiles/2470.dir
-C:/Users/lulu0/CLionProjects/BOJ/2470/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/lulu0/CLionProjects/BOJ/2470/cmake-build-debug/CMakeFiles/rebuild_cache.dir
